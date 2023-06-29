@@ -2,7 +2,6 @@ package br.com.carlosjunior.msclientes.api.controller;
 
 
 import br.com.carlosjunior.msclientes.domain.dto.ClienteSaveRequest;
-import br.com.carlosjunior.msclientes.domain.entity.Cliente;
 import br.com.carlosjunior.msclientes.domain.service.ClienteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import java.net.URI;
 
 @Slf4j
 @RestController
-@RequestMapping("clientes")
+@RequestMapping("/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
 
@@ -41,6 +40,7 @@ public class ClienteController {
     public ResponseEntity dadosCliente(@RequestParam String cpf){
         var cliente = service.getByCpf(cpf);
         if (cliente.isEmpty()) {
+            log.info("[ClienteController].[dadosCliente] -> NotFoundException");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cliente);
