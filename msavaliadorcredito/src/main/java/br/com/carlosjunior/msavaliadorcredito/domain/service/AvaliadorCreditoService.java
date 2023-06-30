@@ -1,14 +1,15 @@
 package br.com.carlosjunior.msavaliadorcredito.domain.service;
 
-import br.com.carlosjunior.msavaliadorcredito.domain.dto.CartaoAprovadoDTO;
-import br.com.carlosjunior.msavaliadorcredito.domain.dto.RetornoAvaliacaoClienteDTO;
+import br.com.carlosjunior.msavaliadorcredito.domain.dto.*;
+import br.com.carlosjunior.msavaliadorcredito.domain.exception.ErroSolicitacaoCartaoException;
 import br.com.carlosjunior.msavaliadorcredito.domain.feign.dto.CartaoClienteDTOFeign;
 import br.com.carlosjunior.msavaliadorcredito.domain.feign.dto.DadosClienteDTOFeign;
-import br.com.carlosjunior.msavaliadorcredito.domain.dto.SituacaoClienteDTO;
 import br.com.carlosjunior.msavaliadorcredito.domain.feign.CartoesFeign;
 import br.com.carlosjunior.msavaliadorcredito.domain.feign.ClientesFeign;
-import br.com.carlosjunior.msavaliadorcredito.exception.ErrorComunicationMicroservicesException;
-import br.com.carlosjunior.msavaliadorcredito.exception.NotFoundException;
+import br.com.carlosjunior.msavaliadorcredito.domain.exception.ErrorComunicationMicroservicesException;
+import br.com.carlosjunior.msavaliadorcredito.domain.exception.NotFoundException;
+import br.com.carlosjunior.msavaliadorcredito.domain.rabbitmq.SolicitacaoEmissaoCartaoPublisher;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,6 +29,7 @@ public class AvaliadorCreditoService {
 
     private final ClientesFeign clientesFeing;
     private final CartoesFeign cartoesFeign;
+    private final SolicitacaoEmissaoCartaoPublisher emissaoCartaoPublisher;
 
     public SituacaoClienteDTO obterSituacaoCliente(String cpf)
             throws NotFoundException, ErrorComunicationMicroservicesException {
@@ -81,6 +84,19 @@ public class AvaliadorCreditoService {
                 throw new NotFoundException("Cliente não encontrado");
             }
             throw new ErrorComunicationMicroservicesException(e.getMessage(), status);
+        }
+    }
+
+
+    public ProtocoloSolicitacaoCartaoDTO solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartaoDTO dados)
+            throws JsonProcessingException {
+        try {
+            log.info("[AvaliadorCreditoService].[solicitarEmissaoCartao] -> solicitar");
+            emissaoCartaoPublisher.solicitarCartao(dados);
+            String protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartaoDTO(protocolo);
+        }catch ( Exception e ){
+            throw new ErroSolicitacaoCartaoException(e.getMessage());
         }
     }
 

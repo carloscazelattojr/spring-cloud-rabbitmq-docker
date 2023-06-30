@@ -1,4 +1,4 @@
-package br.com.carlosjunior.msavaliadorcredito.exception;
+package br.com.carlosjunior.msavaliadorcredito.domain.exception;
 
 
 import lombok.Getter;

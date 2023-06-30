@@ -1,4 +1,4 @@
-package br.com.carlosjunior.msavaliadorcredito.domain.dto;
+package br.com.carlosjunior.mscartoes.domain.dto;
 
 import lombok.Data;
 
