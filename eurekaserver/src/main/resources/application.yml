@@ -1,6 +1,12 @@
 spring:
   application:
     name: eurekaserver
+  security:
+    basic:
+      enabled: true
+    user:
+      name: mseurekauser
+      password: senhaeureka
 
 server:
   port: 8761
