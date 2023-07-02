@@ -1,0 +1,10 @@
+2023-06-30 15:32:00.117  INFO 14768 --- [main] c.c.m.MsavaliadorcreditoApplicationTests : Starting MsavaliadorcreditoApplicationTests using Java 17.0.7 on DESKTOP-KI8VK0H with PID 14768 (started by carlo in D:\Develop\Projects\spring-cloud-mensageria-docker\msavaliadorcredito)
+2023-06-30 15:32:00.121  INFO 14768 --- [main] c.c.m.MsavaliadorcreditoApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2023-06-30 15:32:02.253  INFO 14768 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=b2d4736a-7e67-3305-9719-97609ddd0fc1
+2023-06-30 15:32:03.047  INFO 14768 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'msclientes' URL not provided. Will try picking an instance via load-balancing.
+2023-06-30 15:32:03.238  INFO 14768 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'mscartoes' URL not provided. Will try picking an instance via load-balancing.
+2023-06-30 15:32:05.870  INFO 14768 --- [main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2023-06-30 15:32:06.373  WARN 14768 --- [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2023-06-30 15:32:06.470  INFO 14768 --- [main] c.c.m.MsavaliadorcreditoApplicationTests : Started MsavaliadorcreditoApplicationTests in 7.274 seconds (JVM running for 9.226)
+2023-06-30 15:32:07.574  INFO 14768 --- [SpringApplicationShutdownHook] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2023-06-30 15:32:07.577  INFO 14768 --- [SpringApplicationShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application MSAVALIADORCREDITO with eureka with status DOWN
